@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     public int RGB = 0;
 
     private int ScoreValue_DH = 5;
-    private int ScoreValue_RGB = 15;
+    private int ScoreValue_RGB = 10;
     private int ScoreValue_RRRGGGBBB = 10;
 
     public Text Text_DH;
@@ -110,6 +110,10 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             SetGameState(GameState.inGame);
         }
+        // press the left button even though the user is not pressing the left button
+        Input.ResetInputAxes();
+
+
         
     }
 

@@ -36,7 +36,6 @@ public class FallingParticles : MonoBehaviour
     void Start()
     {
         rigidBody.velocity = new Vector2(0, fallingSpeedMax);
-
     }
 
     // Update is called once per frame
@@ -147,33 +146,34 @@ public class FallingParticles : MonoBehaviour
             FallingParticles particleDown1 = GetNeighbour(thisPosition, Vector2.down, diameter);
             FallingParticles particleDown2 = GetNeighbour(thisPosition, Vector2.down, diameter*2);
 
-            bool verticalVanish = false;
-            bool horizontalVanish = false;
+            bool verticalRVanish = false;
+            bool horizontalRGBVanish = false;
+            bool horizontalRVanish = false;
 
             if (particleDown1 != null && particleDown2 != null){
                 if (particleDown1.particleType == ParticleType.Red && particleDown2.particleType == ParticleType.Red){
-                    verticalVanish = true;
+                    verticalRVanish = true;
                 }
             }
             if (particleRight1 != null && particleRight2 != null){
                 if (particleRight1.particleType == ParticleType.Green && particleRight2.particleType == ParticleType.Blue){
-                    horizontalVanish = true;
+                    horizontalRGBVanish = true;
+                }
+                if (particleRight1.particleType == ParticleType.Red && particleRight2.particleType == ParticleType.Red){
+                    horizontalRVanish = true;
                 }
             }
-            if (horizontalVanish && verticalVanish){
-                GameManager.instance.RAdded();
+            if (horizontalRGBVanish){
                 GameManager.instance.RGBAdded();
-                ParticalGenerator.instance.destroyPartical(particleRight1);
-                ParticalGenerator.instance.destroyPartical(particleRight2);
                 ParticalGenerator.instance.destroyPartical(particleDown1);
                 ParticalGenerator.instance.destroyPartical(particleDown2);
                 ParticalGenerator.instance.destroyPartical(instance);
-            }else if (horizontalVanish){
-                GameManager.instance.RGBAdded();
+            }else if (horizontalRVanish){
+                GameManager.instance.RAdded();
                 ParticalGenerator.instance.destroyPartical(particleRight1);
                 ParticalGenerator.instance.destroyPartical(particleRight2);
                 ParticalGenerator.instance.destroyPartical(instance);
-            }else if (verticalVanish){
+            }else if (verticalRVanish){
                 GameManager.instance.RAdded();
                 ParticalGenerator.instance.destroyPartical(particleDown1);
                 ParticalGenerator.instance.destroyPartical(particleDown2);
@@ -189,33 +189,34 @@ public class FallingParticles : MonoBehaviour
             FallingParticles particleDown1 = GetNeighbour(thisPosition, Vector2.down, diameter);
             FallingParticles particleDown2 = GetNeighbour(thisPosition, Vector2.down, diameter*2);
 
-            bool verticalVanish = false;
-            bool horizontalVanish = false;
+            bool verticalGVanish = false;
+            bool horizontalRGBVanish = false;
+            bool horizontalGVanish = false;
 
             if (particleDown1 != null && particleDown2 != null){
                 if (particleDown1.particleType == ParticleType.Green && particleDown2.particleType == ParticleType.Green){
-                    verticalVanish = true;
+                    verticalGVanish = true;
                 }
             }
             if (particleLeft != null && particleRight != null){
                 if (particleLeft.particleType == ParticleType.Red && particleRight.particleType == ParticleType.Blue){
-                    horizontalVanish = true;
+                    horizontalRGBVanish = true;
+                }
+                if (particleLeft.particleType == ParticleType.Green && particleRight.particleType == ParticleType.Green){
+                    horizontalGVanish = true;
                 }
             }
-            if (horizontalVanish && verticalVanish){
+            if (horizontalRGBVanish){
+                GameManager.instance.RGBAdded();
+                ParticalGenerator.instance.destroyPartical(particleLeft);
+                ParticalGenerator.instance.destroyPartical(particleRight);
+                ParticalGenerator.instance.destroyPartical(instance);
+            }else if (horizontalGVanish){
                 GameManager.instance.GAdded();
-                GameManager.instance.RGBAdded();
-                ParticalGenerator.instance.destroyPartical(particleLeft);
-                ParticalGenerator.instance.destroyPartical(particleRight);
-                ParticalGenerator.instance.destroyPartical(particleDown1);
-                ParticalGenerator.instance.destroyPartical(particleDown2);
-                ParticalGenerator.instance.destroyPartical(instance);
-            }else if (horizontalVanish){
-                GameManager.instance.RGBAdded();
                 ParticalGenerator.instance.destroyPartical(particleLeft);
                 ParticalGenerator.instance.destroyPartical(particleRight);
                 ParticalGenerator.instance.destroyPartical(instance);
-            }else if (verticalVanish){
+            }else if (verticalGVanish){
                 GameManager.instance.GAdded();
                 ParticalGenerator.instance.destroyPartical(particleDown1);
                 ParticalGenerator.instance.destroyPartical(particleDown2);
@@ -230,33 +231,36 @@ public class FallingParticles : MonoBehaviour
             FallingParticles particleDown1 = GetNeighbour(thisPosition, Vector2.down, diameter);
             FallingParticles particleDown2 = GetNeighbour(thisPosition, Vector2.down, diameter*2);
 
-            bool verticalVanish = false;
-            bool horizontalVanish = false;
+            bool verticalBVanish = false;
+            bool horizontalRGBVanish = false;
+            bool horizontalBVanish = false;
+            
+
 
             if (particleDown1 != null && particleDown2 != null){
                 if (particleDown1.particleType == ParticleType.Blue && particleDown2.particleType == ParticleType.Blue){
-                    verticalVanish = true;
+                    verticalBVanish = true;
                 }
             }
             if (particleLeft2 != null && particleLeft1 != null){
                 if (particleLeft2.particleType == ParticleType.Red && particleLeft1.particleType == ParticleType.Green){
-                    horizontalVanish = true;
+                    horizontalRGBVanish = true;
+                }
+                if (particleLeft2.particleType == ParticleType.Blue && particleLeft1.particleType == ParticleType.Blue){
+                    horizontalBVanish = true;
                 }
             }
-            if (horizontalVanish && verticalVanish){
+            if (horizontalRGBVanish){
+                GameManager.instance.RGBAdded();
+                ParticalGenerator.instance.destroyPartical(particleLeft2);
+                ParticalGenerator.instance.destroyPartical(particleLeft1);
+                ParticalGenerator.instance.destroyPartical(instance);
+            }else if (horizontalBVanish){
                 GameManager.instance.BAdded();
-                GameManager.instance.RGBAdded();
-                ParticalGenerator.instance.destroyPartical(particleLeft2);
-                ParticalGenerator.instance.destroyPartical(particleLeft1);
-                ParticalGenerator.instance.destroyPartical(particleDown1);
-                ParticalGenerator.instance.destroyPartical(particleDown2);
-                ParticalGenerator.instance.destroyPartical(instance);
-            }else if (horizontalVanish){
-                GameManager.instance.RGBAdded();
                 ParticalGenerator.instance.destroyPartical(particleLeft2);
                 ParticalGenerator.instance.destroyPartical(particleLeft1);
                 ParticalGenerator.instance.destroyPartical(instance);
-            }else if (verticalVanish){
+            }else if (verticalBVanish){
                 GameManager.instance.BAdded();
                 ParticalGenerator.instance.destroyPartical(particleDown1);
                 ParticalGenerator.instance.destroyPartical(particleDown2);
