@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour
     public int RGB = 0;
 
     private int ScoreValue_DH = 5;
-    private int ScoreValue_RGB = 10;
     private int ScoreValue_RRRGGGBBB = 10;
+    private int ScoreValue_RGB = 15;
 
     public Text Text_DH;
     public Text Text_IPG;
@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
     public Text Text_G;
     public Text Text_B;
     public Text Text_RGB;
-    public Text Text_Gameover;
     public Text Text_Gameover_detail;
     private float timeSpend = 0.0f;
 
@@ -93,9 +92,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver(bool win, string text, Color color){
-        if (win){
-            Text_Gameover.text = "You win!";
-        }
+
         Text_Gameover_detail.text = text;
         Text_Gameover_detail.color = color;
 
@@ -125,16 +122,12 @@ public class GameManager : MonoBehaviour
     {
         if (newGameState == GameState.menu)
         {
-            //  setup Unity scene for menu state
-            // menuCanvas.enabled = true;
             inGameCanvas.enabled = false;
             pauseCanvas.enabled = false;
             gameOverCanvas.enabled = false;
         }
         else if (newGameState == GameState.inGame)
         {
-            //  setup Unity scene for inGame state
-            // menuCanvas.enabled = false;
             inGameCanvas.enabled = true;
             pauseCanvas.enabled = false;
             gameOverCanvas.enabled = false;
@@ -142,8 +135,6 @@ public class GameManager : MonoBehaviour
         }
         else if (newGameState == GameState.pause)
         {
-            //  setup Unity scene for pause state
-            // menuCanvas.enabled = false;
             inGameCanvas.enabled = true;
             pauseCanvas.enabled = true;
             gameOverCanvas.enabled = false;
@@ -153,13 +144,9 @@ public class GameManager : MonoBehaviour
         }
         else if (newGameState == GameState.gameOver)
         {
-            //  setup Unity scene for gameOver state
-            // menuCanvas.enabled = false;
             inGameCanvas.enabled = true;
             pauseCanvas.enabled = false;
             gameOverCanvas.enabled = true;
-            // SpaceFighter.instance.enabled = false;
-            // ParticalGenerator.instance.enabled = false;
             Time.timeScale = 0;
 
         }
@@ -170,7 +157,6 @@ public class GameManager : MonoBehaviour
     public void DebrisAdded(){
         debrisCounter ++;
         if (debrisCounter > 5){
-            // "Opps! Debris are filled in the storage!" in Black
             GameOver(false, "Opps! Debris are filled in the storage!", Color.black);
         }
     }
